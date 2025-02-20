@@ -98,4 +98,18 @@ public class EmployeeController {
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);//所有的分页查询最终返回一个pageResult对象
     }
+
+    /**
+     *启用禁用员工账号
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用员工账号")
+    public Result startOrStop(@PathVariable Integer status,Long id){//路径参数需要加这个注解,id就不需要了因为他是地址栏传参
+        log.info("启用禁用员工账号:{},{}", status,id);
+        employeeService.startOrStop(status,id);
+        return Result.success();
+    }// 非查询类data都是空的就不需要泛型了
 }
