@@ -112,4 +112,30 @@ public class EmployeeController {
         employeeService.startOrStop(status,id);
         return Result.success();
     }// 非查询类data都是空的就不需要泛型了
+
+    /**
+     * 根据id查询员工信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("查询员工信息根据id")
+    public Result<Employee> getById(@PathVariable Long id){//路径参数的注解
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
+    /**
+     * 编辑员工信息
+     * @param empolyeeDTO
+     * @return
+     */
+    @PutMapping
+    @ApiOperation("编辑员工信息")
+    public Result update(@RequestBody EmployeeDTO empolyeeDTO){//提交过来的是json格式的
+        log.info("编辑员工信息:{}", empolyeeDTO);
+        employeeService.update(empolyeeDTO);
+        return Result.success();
+
+    }
 }
