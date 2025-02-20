@@ -1,10 +1,14 @@
 package com.sky.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sky.interceptor.JwtTokenAdminInterceptor;
+import com.sky.json.JacksonObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -14,6 +18,8 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+
+import java.util.List;
 
 /**
  * 配置类，注册web层相关组件
@@ -64,5 +70,20 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+    @Override
+    /**
+     * 扩展spring mvc框架的消息转换器，对后端传到前端的统一处理
+     * @param converters
+     */
+    protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {//
+        log.info("扩展消息转换器...");
+        //创建消息转换器对象
+        MappingJackson2HttpMessageConverter Converter = new MappingJackson2HttpMessageConverter();
+        //设置对象转换器，底层使用Jackson将Java对象序列化转为json数据
+        Converter.setObjectMapper(new JacksonObjectMapper());
+        //将上面的消息转换器对象追加到mvc框架的转换器集合中
+        converters.add(0,Converter);
     }
 }
