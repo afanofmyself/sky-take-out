@@ -15,3 +15,4 @@ public class AliOssProperties {
     private String bucketName;
 
 }
+//项目启动时，自动加载配置文件(application-dev.yml)

@@ -21,7 +21,7 @@ public class AliOssUtil {
 
     /**
      * 文件上传
-     *
+     *工具类
      * @param bytes
      * @param objectName
      * @return

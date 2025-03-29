@@ -1,3 +1,5 @@
+#是主配置文件，通常包含通用的配置项（适用于所有环境的基础配置）
+
 server:
   port: 8080
 
@@ -37,3 +39,8 @@ sky:
     admin-ttl: 7200000000000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+  alioss:
+    endpoint: ${sky.alioss.endpoint}
+    access-key-id: ${sky.alioss.access-key-id}
+    access-key-secret: ${sky.alioss.access-key-secret}
+    bucket-name: ${sky.alioss.bucket-name}
