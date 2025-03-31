@@ -4,3 +4,14 @@
 *.class
 *Test.java
 **/test/
+
+
+# ============================
+# 忽略敏感配置文件
+# ============================
+# 本地配置文件（如开发环境、测试环境）
+application-dev.yml
+application-local.yml
+application-test.yml
+*.properties
+*.yml
